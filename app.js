@@ -207,9 +207,9 @@ function enviarMensajeTexto(senderID, mensaje) {
 		if (mensaje.identificacion === undefined) {
 			nuevoMensaje = "Las personas que encontramos son: \r\n";
 			mensaje.forEach(function (item) {
-				var arr = item.FEC_NAC.split("T");
+				
 				nuevoMensaje += "\nCedula: " + item.CEDULA + "\nNombres: " +
-					item.NOMBRE +" "+ item.APELLIDO +  "\nFecha Nacimiento: " + arr[0] +
+					item.NOMBRE +" "+ item.APELLIDO +  "\nFecha Nacimiento: " + item.FEC_NAC +
 					 "\nTelefono: " + item.TELEFONO + "\nGenero: " + item.GENERO + "\nEstado: " +
 					  item.ESTADO + "\nCorreo: " + item.CORREO + "\nEdad: " + item.EDAD +";\r\n";
 			})
