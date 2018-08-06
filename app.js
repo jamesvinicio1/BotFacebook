@@ -205,11 +205,13 @@ function enviarMensajeTexto(senderID, mensaje) {
 	} else {
 		var nuevoMensaje = "";
 		if (mensaje.identificacion === undefined) {
-			nuevoMensaje = "Los clientes que encontramos fueron: \r\n";
+			nuevoMensaje = "Las personas que encontramos son: \r\n";
 			mensaje.forEach(function (item) {
-				var arr = item.fecha_nacimiento.split("T");
-				nuevoMensaje += "Con Cedula: " + item.identificacion + ", Nombre: " +
-					item.nombres + ", Fecha de Nacimiento: " + arr[0] + " y Estatura: " + item.estatura + ";\r\n";
+				var arr = item.FEC_NAC.split("T");
+				nuevoMensaje += "\nCedula: " + item.CEDULA + "\nNombres: " +
+					item.NOMBRE +" "+ item.APELLIDO +  "\nFecha Nacimiento: " + arr[0] +
+					 "\nTelefono: " + item.TELEFONO + "\nGenero: " + item.GENERO + "\nEstado: " +
+					  item.ESTADO + "\nCorreo: " + item.CORREO + "\nEdad: " + item.EDAD +";\r\n";
 			})
 		} else {
 			var arr = mensaje.fecha_nacimiento.split("T");
@@ -242,7 +244,7 @@ function getMessageCLima(temperatura) {
 
 //traer todos los clientes
 function getTodosClientes(callback) {
-	request('https://shrouded-cove-68443.herokuapp.com/clientes',
+	request('https://secret-reef-38495.herokuapp.com/personas/',
 		function (error, response, data) {
 			if (!error) {
 				callback(JSON.parse(data))
