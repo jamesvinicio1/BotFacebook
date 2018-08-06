@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 
-const APP_TOKEN = 'EAAFMYZBrzIlkBAMFOQFnLtPFZAhATo6nUNUbZBK1Qa9yBxxB4iF3ul6X1ITmQpoV2FZBopmedmObcFwXn2fYiJygnKW31TuQAzwtOjF8I25ZA6PZBtRFc0Yn1ZAtZCh4a2GMpuv0ULAZCCR5yZBFAxA3aQBreRjIRqFNKXP3GNDWKQ0QZDZD'
+const APP_TOKEN = 'EAADQZASDVRioBAPuKBnP0LZAESOvnOKOXPHr0jJks38zVQ4ppsXKXlOvfQEeW1GKnfHwNXgowREr0HCmuyGbDaSnCKU7d6QQaW0ZAXQldZCXN4gBes7MZCRfSYod8YkyuU5Fc7ZBn15Ab1fQL3gvx9YGzkC8DuPBiqZCZBabMJkOcKt8uGFbFjrU'
 
 var app = express()
 
@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/webhook', function (req, res) {
-	if (req.query['hub.verify_token'] === 'hello_token') {
+	if (req.query['hub.verify_token'] === 'carrillomarin') {
 		res.send(req.query['hub.challenge'])
 	} else {
 		res.send('Tu no tienes que entrar aqui')
