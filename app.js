@@ -60,19 +60,19 @@ function evaluarMensaje(senderID, messageText) {
 	var mensaje = '';
 	var tamanioCadena = String(messageText).length;
 	if (isContain(messageText, 'hola')) {
-		mensaje = 'hola que tal? :D , en que puedo ayudarte?, quieres ver nuestro menu de opciones?';
-	} else if (isContain(messageText, 'menu') || isContain(messageText, 'otra') || isContain(messageText, 'mas')) {
+		mensaje = 'Estimado usuario, ¿Deseas desplegar el menu de servicios?';
+	} else if (isContain(messageText, 'claro') || isContain(messageText, 'bueno') || isContain(messageText, 'ok') || isContain(messageText, 'menu') || isContain(messageText, 'si') || isContain(messageText, 'mas')) {
 		enviarMensajeTemplate(senderID);
-	} else if (isContain(messageText, 'otras') || isContain(messageText, 'opciones')) {
+	} else if (isContain(isContain(messageText, 'varios') || messageText, 'submenu') || isContain(messageText, 'otras') || isContain(messageText, 'opciones')) {
 		enviarMensajeTemplateOtros(senderID);
-	} else if (isContain(messageText, 'todos')) {
+	} else if (isContain(messageText, 'todos') || (messageText, 'todas las personas')) {
 		getTodosClientes(function (lista) { enviarMensajeTexto(senderID,lista) })
-	} else if (isContain(messageText, 'cedula')) {
-		mensaje = 'Claro no hay ploblema, dame el numero de cedula';
-	} else if (isContain(messageText, 'nuevo')) {
-		mensaje = 'Tienes que darme los datos con el Formato: Cedula/NombresyApellidos/FechaNacimiento(AAAA-MM-DD)/estatura';
+	} else if (isContain(messageText, 'busqueda por cedula') || isContain(messageText, 'cedula') || isContain(messageText, 'por cedula')) {
+		mensaje = 'Estimado usuario, por favor ingresa el numero de cedula de la persona que quieres buscar: ';
+	} else if (isContain(messageText, 'nuevo') || isContain(messageText, 'nueva persona') || isContain(messageText, 'crear persona') ) {
+		mensaje = 'Estimado usuario, por favor ingresa a una persona con el siguiente formato: Cedula/Nombre/Apellido/Fecha de nacimiento/Telefono/Genero,/Estado/Correo/Edad';
 	} else if (isContain(messageText, 'actualizacion')) {
-		mensaje = 'Para actualizar tienes que darme los datos con el Formato Cedula/NombresyApellidos/FechaNacimiento(AAAA-MM-DD)/estatura';
+		mensaje = 'Estimado usuario, para modificar por favor ingresa a la persona y el cambio con el siguiente formato: Cedula/Nombre/Apellido/Fecha de nacimiento/Telefono/Genero,/Estado/Correo/Edad';
 	} else if (isContain(messageText, '/')) {
 		var datos = messageText.split("/");
 		getCliente(datos[0],function (respuesta) {
@@ -82,16 +82,16 @@ function evaluarMensaje(senderID, messageText) {
 				putCliente(messageText, function(cliente){enviarMensajeTexto(senderID,cliente)})
 			}
 		});
-	} else if (isContain(messageText, 'eliminar')) {
-		mensaje = 'Seguro?, Si es asi dame la cedula para eliminarlo, ingresa la cedula seguido del numeral Ej. #1234567890';
+	} else if (isContain(messageText, 'eliminar')||isContain(messageText, 'borrar')||isContain(messageText, 'eliminar persona')) {
+		mensaje = 'Estimado usuario, para eliminar una persona debes ingresar la palabra borra y el numero de cedula, asi: borra 1721670444';
 	} else if (tamanioCadena === 10) {
 		getCliente(messageText, function (cliente) { enviarMensajeTexto(senderID, cliente) })
 	} else if (tamanioCadena === 11) {
 		deleteCliente(messageText, function (cliente) { enviarMensajeTexto(senderID, cliente) })
-	} else if (isContain(messageText, 'gracias')) {
-		mensaje = 'con mucho gusto, estoy para servir (Y)';
+	} else if (isContain(messageText, 'gracias')||isContain(messageText, 'fin')||isContain(messageText, 'chao')||isContain(messageText, 'salir')) {
+		mensaje = 'Estimado usuario, gracias por utilizar nuestro CRUD, vuelve ponto.';
 	} else {
-		mensaje = 'Solo se repetir las cosas T_T' + messageText
+		mensaje = 'Estimado usuario, no entiendo esa palabra, puedes intentar con la palabra menu'
 	}
 
 	enviarMensajeTexto(senderID, mensaje)
@@ -118,13 +118,13 @@ function enviarMensajeTemplate(senderID) {
 
 function elementTemplate() {
 	return {
-		title: "Cajape S. - Escorza A.",
-		subtitle: "Arquitectura de software",
-		image_url: "http://www.aprende-facilmente.com/wp-content/uploads/2016/07/nodejs_logo.png",
+		title: "CHAT BOT - FACEBOOK",
+		subtitle: "CARRILLO - MARIN",
+		image_url: "https://postcron.com/es/blog/wp-content/uploads/2017/12/facebook_bot.jpg",
 		buttons: [
-			buttonTemplate('Mostrar Todos', 'todos'),
-			buttonTemplate('Mostrar x Cedula', 'cedula'),
-			buttonTemplate('Otras Opciones', 'otras')
+			buttonTemplate('Desplegar todas las personas', 'todos'),
+			buttonTemplate('Desplegar persona por cedula', 'cedula'),
+			buttonTemplate('Desplegar mas Opciones', 'otras')
 		]
 	}
 }
@@ -150,13 +150,13 @@ function enviarMensajeTemplateOtros(senderID) {
 
 function elementTemplateOtros() {
 	return {
-		title: "Cajape S. - Escorza A.",
-		subtitle: "Arquitectura de software",
-		image_url: "http://www.aprende-facilmente.com/wp-content/uploads/2016/07/nodejs_logo.png",
+		title: "CHAT BOT - FACEBOOK",
+		subtitle: "CARRILLO - MARIN",
+		image_url: "https://postcron.com/es/blog/wp-content/uploads/2017/12/facebook_bot.jpg",
 		buttons: [
-			buttonTemplate('Insertar', 'nuevo'),
-			buttonTemplate('Actualizar', 'actualizacion'),
-			buttonTemplate('Eliminar', 'eliminar')
+			buttonTemplate('Agregar una persona nueva', 'nuevo'),
+			buttonTemplate('Modificar una persona existente', 'actualizacion'),
+			buttonTemplate('Eliminar una persona', 'eliminar')
 		]
 	}
 }
@@ -172,25 +172,6 @@ function buttonTemplate(title, pay) {
 
 }
 
-//enviar imagen
-function enviarMensajeImagen(senderID) {
-	var messageData = {
-		recipient: {
-			id: senderID
-		},
-		message: {
-			attachment: {
-				type: "image",
-				payload: {
-					url: 'https://s-media-cache-ak0.pinimg.com/564x/ef/e8/ee/efe8ee7e20537c7af84eaaf88ccc7302.jpg'
-				}
-
-			}
-		}
-	}
-
-	callSendAPI(messageData)
-}
 //enviar texto plano
 function enviarMensajeTexto(senderID, mensaje) {
 	if (typeof mensaje == "string") {
@@ -205,18 +186,19 @@ function enviarMensajeTexto(senderID, mensaje) {
 	} else {
 		var nuevoMensaje = "";
 		if (mensaje.identificacion === undefined) {
-			nuevoMensaje = "Las personas que encontramos son: \r\n";
+			nuevoMensaje = "Las personas que encontramos en nuestra DB son las siguientes: \r\n";
 			mensaje.forEach(function (item) {
-				
+
 				nuevoMensaje += "\nCedula: " + item.CEDULA + "\nNombres: " +
-					item.NOMBRE +" "+ item.APELLIDO +  "\nFecha Nacimiento: " + item.FEC_NAC +
-					 "\nTelefono: " + item.TELEFONO + "\nGenero: " + item.GENERO + "\nEstado: " +
-					  item.ESTADO + "\nCorreo: " + item.CORREO + "\nEdad: " + item.EDAD +";\r\n";
+					item.NOMBRE + "\nApellido: " + item.APELLIDO + "\nFecha Nacimiento: " + item.FEC_NAC +
+					"\nTelefono: " + item.TELEFONO + "\nGenero: " + item.GENERO + "\nEstado: " +
+					item.ESTADO + "\nCorreo: " + item.CORREO + "\nEdad: " + item.EDAD + ";\r\n\n";
 			})
 		} else {
-			var arr = mensaje.fecha_nacimiento.split("T");
-			nuevoMensaje = "El cliente que encontramos fue Cedula: " + mensaje.identificacion + ", Nombre: " +
-				mensaje.nombres + ", Fecha de Nacimiento: " + arr[0] + " y Estatura: " + mensaje.estatura;
+			nuevoMensaje += "\nCedula: " + mensaje.CEDULA + "\nNombres: " +
+					mensaje.NOMBRE + "\nApellido: " + mensaje.APELLIDO + "\nFecha Nacimiento: " + mensaje.FEC_NAC +
+					"\nTelefono: " + mensaje.TELEFONO + "\nGenero: " + mensaje.GENERO + "\nEstado: " +
+					mensaje.ESTADO + "\nCorreo: " + mensaje.CORREO + "\nEdad: " + mensaje.EDAD + ";\r\n\n";
 		}
 		var messageData = {
 			recipient: {
@@ -230,16 +212,6 @@ function enviarMensajeTexto(senderID, mensaje) {
 
 
 	callSendAPI(messageData)
-}
-
-//formatear el texto de regreso al cliente
-
-function getMessageCLima(temperatura) {
-	if (temperatura > 30) {
-		return "Nos encontramos a " + temperatura + ". Hay demasiado calor, comprate una gaseosa :V"
-	} else {
-		return "Nos encontramos a " + temperatura + " es un bonito dia para salir"
-	}
 }
 
 //traer todos los clientes
@@ -256,30 +228,30 @@ function getTodosClientes(callback) {
 
 //traer los clientes por cedula
 function getCliente(cedula, callback) {
-	request('https://shrouded-cove-68443.herokuapp.com/clientes/' + cedula,
+	request('https://secret-reef-38495.herokuapp.com/personas/cedula/' + cedula,
 		function (error, response, data) {
 			if (!error) {
 				var newData = JSON.parse(data);
 				if(newData.identificacion == undefined){
-					callback("Lo siento no encontre ese usuario")
+					callback("Estimado usuario, no se encontro una persona con ese numero de cedula")
 				}else{
 					callback(newData)
 				}
 			} else {
-				callback("no es posible")
+				callback("Estimado usuario, no se establece una conexion con el servidor")
 			}
 		})
 }
 
 //eliminar por cedula
 function deleteCliente(cedula, callback) {
-	var soloNumeros = cedula.split("#");
-	request.delete('https://shrouded-cove-68443.herokuapp.com/clientes/' + soloNumeros[1],
+	var soloNumeros = cedula.split("borra ");
+	request.delete('https://secret-reef-38495.herokuapp.com/personas/' + soloNumeros[1],
 		function (error, response, data) {
 			if (!error) {
-				callback("Excelente!, el cliente con el numero de cedula " + soloNumeros[1] + " ya fue eliminado")
+				callback("Estimado usuario, la persona con la cedula " + soloNumeros[1] + " se borro de la DB")
 			} else {
-				callback("no es posible")
+				callback("Estimado usuario, no se establece una conexion con el servidor")
 			}
 		})
 }
@@ -287,14 +259,14 @@ function deleteCliente(cedula, callback) {
 //guardar nuevo cliente
 function postCliente(cadenaContenedora, callback) {
 	var datos = cadenaContenedora.split("/");
-	var options = clienteTemplate(datos[0], datos[1], datos[2]+"T00:00:00.000Z", datos[3]);
+	var options = clienteTemplate(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7], datos[8]);
 	console.log(options)
-	request.post(options,
+	request.put(options,
 		function (error, response, data) {
 			if (!error) {
-				callback("Excelente!, el cliente con el numero de cedula " + datos[0] + " ya fue ingresado")
+				callback("Estimado usuario, la persona con la cedula " + datos[0] + " se añadio a la DB")
 			} else {
-				callback("no es posible")
+				callback("Estimado usuario, no se establece una conexion con el servidor")
 			}
 		})
 }
@@ -302,27 +274,32 @@ function postCliente(cadenaContenedora, callback) {
 //actualizar cliente
 function putCliente(cadenaContenedora, callback) {
 	var datos = cadenaContenedora.split("/");
-	var options = clienteTemplate(datos[0], datos[1], datos[2]+"T00:00:00.000Z", datos[3]);
-	request.put(options,
+	var options = clienteTemplate(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6], datos[7], datos[8]);
+	request.post(options,
 		function (error, response, data) {
 			if (!error) {
-				callback("Excelente!, el cliente con el numero de cedula " + datos[0] + " ya fue actualizado")
+				callback("Estimado usuario, la persona con la cedula " + datos[0] + " a sido actualizada en nuestra DB")
 			} else {
-				callback("no es posible")
+				callback("Estimado usuario, no se establece una conexion con el servidor")
 			}
 		})
 }
 
 //template Model
-function clienteTemplate(identificacion, nombres, fecha_nacimiento, estatura) {
+function clienteTemplate(CEDULA, NOMBRE, APELLIDO, FEC_NAC,TELEFONO,GENERO,ESTADO,CORREO,EDAD) {
 	return {
 		headers: "content-type: application/json",
-		url : 'https://shrouded-cove-68443.herokuapp.com/clientes',
+		url : 'https://secret-reef-38495.herokuapp.com/personas/',
 		body : {
-			identificacion: identificacion,
-			nombres: nombres,
-			fecha_nacimiento: fecha_nacimiento,
-			estatura: estatura
+			CEDULA:CEDULA,
+			NOMBRE:NOMBRE,
+			APELLIDO:APELLIDO,
+			FEC_NAC:FEC_NAC,
+			TELEFONO:TELEFONO,
+			GENERO:GENERO,
+			ESTADO:ESTADO,
+			CORREO:CORREO,
+			EDAD:EDAD
 		},
 		json:true
 	}
@@ -338,9 +315,9 @@ function callSendAPI(messageData) {
 		json: messageData
 	}, function (error, response, data) {
 		if (error)
-			console.log('No es posible enviar el mensaje')
+			console.log('Estimado usuario, NO es posible enviar el mensaje')
 		else
-			console.log('Mensaje enviado')
+			console.log('Estimado usuario, el mensaje fue enviado')
 	})
 }
 
