@@ -86,7 +86,7 @@ function evaluarMensaje(senderID, messageText) {
 		mensaje = 'Estimado usuario, para eliminar una persona debes ingresar la palabra borra y el numero de cedula, asi: borra 1721670444';
 	} else if (tamanioCadena === 10) {
 		getCliente(messageText, function (cliente) { enviarMensajeTexto(senderID, cliente) })
-	} else if (tamanioCadena === 11) {
+	} else if (tamanioCadena === 16) {
 		deleteCliente(messageText, function (cliente) { enviarMensajeTexto(senderID, cliente) })
 	} else if (isContain(messageText, 'gracias')||isContain(messageText, 'fin')||isContain(messageText, 'chao')||isContain(messageText, 'salir')) {
 		mensaje = 'Estimado usuario, gracias por utilizar nuestro CRUD, vuelve ponto.';
@@ -221,18 +221,18 @@ function getTodosClientes(callback) {
 			if (!error) {
 				callback(JSON.parse(data))
 			} else {
-				callback("no es posible")
+				callback("Estimado usuario, no se establece una conexion con el servidor")
 			}
 		})
 }
 
 //traer los clientes por cedula
-function getCliente(cedula, callback) {
-	request('https://secret-reef-38495.herokuapp.com/personas/cedula/' + cedula,
+function getCliente(CEDULA, callback) {
+	request('https://secret-reef-38495.herokuapp.com/personas/cedula'+CEDULA,
 		function (error, response, data) {
 			if (!error) {
 				var newData = JSON.parse(data);
-				if(newData.identificacion == undefined){
+				if(newData.CEDULA == undefined){
 					callback("Estimado usuario, no se encontro una persona con ese numero de cedula")
 				}else{
 					callback(newData)
