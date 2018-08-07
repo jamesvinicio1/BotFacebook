@@ -228,7 +228,7 @@ function getTodosClientes(callback) {
 
 //traer los clientes por cedula
 function getCliente(cedula, callback) {
-	request('https://secret-reef-38495.herokuapp.com/personas/cedula'+cedula,
+	request('https://secret-reef-38495.herokuapp.com/personas/cedula/'+cedula,
 		function (error, response, data) {
 			if (!error) {
 				var newData = JSON.parse(data);
