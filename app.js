@@ -185,7 +185,7 @@ function enviarMensajeTexto(senderID, mensaje) {
 		}
 	} else {
 		var nuevoMensaje = "";
-		if (mensaje.identificacion === undefined) {
+		if (mensaje.CEDULA === undefined) {
 			nuevoMensaje = "Las personas que encontramos en nuestra DB son las siguientes: \r\n";
 			mensaje.forEach(function (item) {
 
@@ -227,12 +227,12 @@ function getTodosClientes(callback) {
 }
 
 //traer los clientes por cedula
-function getCliente(CEDULA, callback) {
-	request('https://secret-reef-38495.herokuapp.com/personas/cedula'+CEDULA,
+function getCliente(cedula, callback) {
+	request('https://secret-reef-38495.herokuapp.com/personas/cedula'+cedula,
 		function (error, response, data) {
 			if (!error) {
 				var newData = JSON.parse(data);
-				if(newData.CEDULA == undefined){
+				if(newData.CEDULA === undefined){
 					callback("Estimado usuario, no se encontro una persona con ese numero de cedula")
 				}else{
 					callback(newData)
