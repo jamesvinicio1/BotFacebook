@@ -55,7 +55,7 @@ function getMessage(event, origen) {
 
 	evaluarMensaje(senderID, messageText)
 }
-//Ingrese con el Formato Cedula/NombresyApellidos/FechaNacimiento(AAAA-MM-DD)/estatura
+
 function evaluarMensaje(senderID, messageText) {
 	var mensaje = '';
 	var tamanioCadena = String(messageText).length;
@@ -63,15 +63,15 @@ function evaluarMensaje(senderID, messageText) {
 		mensaje = 'Estimado usuario, ¿Deseas desplegar el menu de servicios?';
 	} else if (isContain(messageText, 'claro') || isContain(messageText, 'bueno') || isContain(messageText, 'ok') || isContain(messageText, 'menu') || isContain(messageText, 'si') || isContain(messageText, 'mas')) {
 		enviarMensajeTemplate(senderID);
-	} else if (isContain(isContain(messageText, 'varios') || messageText, 'submenu') || isContain(messageText, 'otras') || isContain(messageText, 'opciones')) {
+	} else if (isContain(messageText, 'varios') || isContain(messageText, 'submenu') || isContain(messageText, 'otras') || isContain(messageText, 'opciones')) {
 		enviarMensajeTemplateOtros(senderID);
-	} else if (isContain(messageText, 'todos') || (messageText, 'todas las personas')) {
+	} else if (isContain(messageText, 'todos') || isContain(messageText, 'todas las personas')) {
 		getTodosClientes(function (lista) { enviarMensajeTexto(senderID,lista) })
 	} else if (isContain(messageText, 'busqueda por cedula') || isContain(messageText, 'cedula') || isContain(messageText, 'por cedula')) {
 		mensaje = 'Estimado usuario, por favor ingresa el numero de cedula de la persona que quieres buscar: ';
 	} else if (isContain(messageText, 'nuevo') || isContain(messageText, 'nueva persona') || isContain(messageText, 'crear persona') ) {
 		mensaje = 'Estimado usuario, por favor ingresa a una persona con el siguiente formato: Cedula/Nombre/Apellido/Fecha de nacimiento/Telefono/Genero,/Estado/Correo/Edad';
-	} else if (isContain(messageText, 'actualizacion')) {
+	} else if (isContain(messageText, 'actualizacion') || isContain(messageText, 'actualizar persona')) {
 		mensaje = 'Estimado usuario, para modificar por favor ingresa a la persona y el cambio con el siguiente formato: Cedula/Nombre/Apellido/Fecha de nacimiento/Telefono/Genero,/Estado/Correo/Edad';
 	} else if (isContain(messageText, '/')) {
 		var datos = messageText.split("/");
